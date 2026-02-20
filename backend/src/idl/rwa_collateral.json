@@ -1,0 +1,475 @@
+{
+  "address": "DUnJG5ow6yKgq5z8xihJ3EWvTuxiKmkPJaZjMdfP2yFd",
+  "metadata": {
+    "name": "rwa_collateral",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "create_loan",
+      "discriminator": [
+        166,
+        131,
+        118,
+        219,
+        138,
+        218,
+        206,
+        140
+      ],
+      "accounts": [
+        {
+          "name": "loan",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  97,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "asset"
+              },
+              {
+                "kind": "account",
+                "path": "borrower"
+              }
+            ]
+          }
+        },
+        {
+          "name": "asset",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  115,
+                  115,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "asset.asset_id",
+                "account": "Asset"
+              }
+            ]
+          }
+        },
+        {
+          "name": "borrower",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "loan_amount",
+          "type": "u64"
+        },
+        {
+          "name": "interest_rate",
+          "type": "u64"
+        },
+        {
+          "name": "duration",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_asset",
+      "discriminator": [
+        214,
+        153,
+        49,
+        248,
+        95,
+        248,
+        208,
+        179
+      ],
+      "accounts": [
+        {
+          "name": "asset",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  115,
+                  115,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "asset_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "asset_id",
+          "type": "string"
+        },
+        {
+          "name": "asset_type",
+          "type": "string"
+        },
+        {
+          "name": "valuation",
+          "type": "u64"
+        },
+        {
+          "name": "metadata_uri",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "liquidate_loan",
+      "discriminator": [
+        111,
+        249,
+        185,
+        54,
+        161,
+        147,
+        178,
+        24
+      ],
+      "accounts": [
+        {
+          "name": "loan",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  97,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "loan.asset",
+                "account": "Loan"
+              },
+              {
+                "kind": "account",
+                "path": "loan.borrower",
+                "account": "Loan"
+              }
+            ]
+          }
+        },
+        {
+          "name": "asset",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  115,
+                  115,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "asset.asset_id",
+                "account": "Asset"
+              }
+            ]
+          }
+        },
+        {
+          "name": "liquidator",
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "repay_loan",
+      "discriminator": [
+        224,
+        93,
+        144,
+        77,
+        61,
+        17,
+        137,
+        54
+      ],
+      "accounts": [
+        {
+          "name": "loan",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  97,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "loan.asset",
+                "account": "Loan"
+              },
+              {
+                "kind": "account",
+                "path": "loan.borrower",
+                "account": "Loan"
+              }
+            ]
+          }
+        },
+        {
+          "name": "borrower",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "update_risk_score",
+      "discriminator": [
+        80,
+        138,
+        35,
+        224,
+        23,
+        172,
+        20,
+        254
+      ],
+      "accounts": [
+        {
+          "name": "asset",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  115,
+                  115,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "asset.asset_id",
+                "account": "Asset"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "new_risk_score",
+          "type": "u8"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Asset",
+      "discriminator": [
+        234,
+        180,
+        241,
+        252,
+        139,
+        224,
+        160,
+        8
+      ]
+    },
+    {
+      "name": "Loan",
+      "discriminator": [
+        20,
+        195,
+        70,
+        117,
+        165,
+        227,
+        182,
+        1
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "AssetInactive",
+      "msg": "Asset is not active"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidRiskScore",
+      "msg": "Invalid risk score"
+    },
+    {
+      "code": 6002,
+      "name": "LoanTooHigh",
+      "msg": "Loan amount exceeds maximum LTV"
+    },
+    {
+      "code": 6003,
+      "name": "LoanInactive",
+      "msg": "Loan is not active"
+    },
+    {
+      "code": 6004,
+      "name": "NotEligibleForLiquidation",
+      "msg": "Not eligible for liquidation"
+    }
+  ],
+  "types": [
+    {
+      "name": "Asset",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "asset_id",
+            "type": "string"
+          },
+          {
+            "name": "asset_type",
+            "type": "string"
+          },
+          {
+            "name": "valuation",
+            "type": "u64"
+          },
+          {
+            "name": "metadata_uri",
+            "type": "string"
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "is_active",
+            "type": "bool"
+          },
+          {
+            "name": "risk_score",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Loan",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "borrower",
+            "type": "pubkey"
+          },
+          {
+            "name": "asset",
+            "type": "pubkey"
+          },
+          {
+            "name": "principal",
+            "type": "u64"
+          },
+          {
+            "name": "interest_rate",
+            "type": "u64"
+          },
+          {
+            "name": "start_time",
+            "type": "i64"
+          },
+          {
+            "name": "end_time",
+            "type": "i64"
+          },
+          {
+            "name": "is_active",
+            "type": "bool"
+          },
+          {
+            "name": "repaid",
+            "type": "bool"
+          },
+          {
+            "name": "liquidated",
+            "type": "bool"
+          },
+          {
+            "name": "risk_score_at_creation",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}
